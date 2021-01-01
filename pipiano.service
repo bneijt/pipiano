@@ -1,0 +1,6 @@
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/pipiano/start.py
+
+[Install]
+WantedBy=multi-user.target
