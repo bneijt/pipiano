@@ -1,0 +1,5 @@
+gain 1
+router_clear
+router_begin note
+router_par2 0 50 0 50
+router_end

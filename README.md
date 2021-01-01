@@ -1,38 +1,45 @@
-Installation
-============
+PiPiano
+=======
 
-    git clone this repo /opt/pipiano
+_Simple boot script start and connect fluidsynth on Raspbian_
+
+This project is a simple start-up script to have a Raspberry pi work as a simple software synth
+for a USB Midi keyboard.
+
+
+Installation
+------------
+
+The following commands will install `git`, clone this repository onto your Raspbian and install all required dependencies
+
+    sudo apt-get install git
+    sudo git clone https://github.com/bneijt/pipiano.git /opt/pipiano
     sudo /opt/pipiano/install.sh
 
-Configure connection
 
-    aconnect -l
+Usage
+-----
 
-    aconnect 128
+After installation, the `/opt/pipiano/start.py` script will be started as a `systemctl` service at boot.
 
-    sudo fluidsynth --gain 1.5 --server --audio-driver=alsa /usr/share/sounds/sf2/FluidR3_G*
+It should just get you a working installation if you have the keyboard connected when you boot the pi.
 
+Debugging can be done using:
 
-Configure velocity to minimum
+    sudo systemctl status pipiano
+    sudo systemctl restart pipiano
 
-    router_clear
-    router_begin note
-    router_par2 0 39 0 40
-    router_end
-    router_begin note
-    router_par2 40 100 1 0
-    router_end
-    router_begin note
-    router_par2 101 127 0 100
-    router_end
+If you want to configure `fluidsynth`, you can edit the commands in `/opt/pipiano/fluid_config.txt`.
 
 
-    router_clear
-    router_begin note
-    router_par2 0 100 0 100
-    router_end
-    router_begin note
-    router_par2 101 127 0 100
-    router_end
+Uninstall
+---------
+To uninstall this, do the reverse of everything in the `install.sh` script:
+
+    systemctl stop pipiano
+    systemctl disable pipiano
+    rm /etc/systemd/system/pipiano.service
+    rm -rf /opt/pipiano
+
 
 
