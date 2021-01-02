@@ -50,6 +50,10 @@ def fluidsynth():
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
+    logger.info("Changing priority")
+    _ = read_cmd_lines(
+        "/usr/bin/renice", "--priority", "-15", "--pid", str(fluid_proc.pid)
+    )
     logger.info("Waiting for fluidsynth shell")
     for line in itertools.islice(fluid_proc.stdout, 30):
         if b"help topics" in line:
